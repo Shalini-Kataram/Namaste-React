@@ -1,0 +1,19 @@
+what is Emmet?
+
+Emmet is a plugin/tool that helps you write HTML and CSS codes faster by using shorthand syntax to generate entire blocks of code with few keystrokes. Originally developed for web developers. Emmet is available as a built-in feature in most code editors(such as VS code,Sublime Text, Atom) or as a plugin in others. It significantly speeds up front-end coding by turning abbrevations into full HTML or CSS code.
+
+Example : 
+
+html 
+
+div>ul>li*3
+
+Expands to :
+
+<div>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
