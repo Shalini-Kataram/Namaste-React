@@ -1,11 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-// JSX (transpiled before it reaches the JS) - PARCEL - Babel
+const Title = () => <h1>Namaste Javascript using JSX</h1>;
 
-//JSX => React.createElement => ReactElement - JS Object =>HTMLElement(render)
-const jsxHeading = <h1 id="heading">Namaste javascript using JSX</h1>;
+const HeadingComponent = () => (
+    <div>
+        <Title />
+        <h1>Namaste from Functoinal Component</h1>
+    </div>
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(jsxHeading);
+root.render(<HeadingComponent />);
