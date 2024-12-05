@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ResturantCard from "./ResturantCard";
 import Shimmer from "../components/Shimmer";
 import { Link } from "react-router-dom";
+import useListOfResturants from "../utils/useListOfResturants";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
-    const [listOfResturants, setListOfResturants] = useState([]);
-    const [filteredResturant, setFilteredResturant] = useState([]);
     const [searchInput, setSearchInput] = useState("");
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        const data = await fetch(
-            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.406498&lng=78.47724389999999&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null"
-        );
-        const result = await data.json();
-        const filtered = result.data.cards.filter(
-            (card) => card?.card?.relevance && card?.card
-        );
-        setListOfResturants(filtered);
-        setFilteredResturant(filtered);
-    };
+    const [
+        listOfResturants,
+        filteredResturant,
+        setListOfResturants,
+        setFilteredResturant,
+    ] = useListOfResturants();
 
     const handleClick = () => {
         const filtered = listOfResturants.filter((res) =>
@@ -34,6 +25,13 @@ const Body = () => {
         setFilteredResturant(filtered);
     };
 
+    const onlineStatus = useOnlineStatus();
+
+    if (onlineStatus === false) {
+        return (
+            <h1>Ooops!! Something wrong with your internet connection!!!</h1>
+        );
+    }
     return listOfResturants.length === 0 ? (
         <Shimmer />
     ) : (
@@ -51,7 +49,7 @@ const Body = () => {
                     className="filter-btn"
                     onClick={() => {
                         const filtered = listOfResturants.filter(
-                            (res) => res?.card?.card?.info?.avgRating > 4.3
+                            (res) => res?.card?.card?.info?.avgRating > 4.2
                         );
                         setListOfResturants(filtered);
                     }}>
